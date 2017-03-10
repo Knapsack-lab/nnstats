@@ -1,0 +1,34 @@
+{
+  "name": "nn-calculator",
+  "version": "0.0.1",
+  "description": "Calculator for neural nets",
+  "main": "index.js",
+  "scripts": {
+    "test": "mocha",
+    "cover": "istanbul cover ./node_modules/mocha/bin/_mocha --report lcovonly -- -R spec",
+    "html": "istanbul cover ./node_modules/mocha/bin/_mocha --report html -- -R spec",
+    "docs": "node_modules/.bin/jsdoc -c jsdoc.json --readme README.md"
+  },
+  "engines": {
+    "node": ">=0.10.0"
+  },
+  "files": [
+    "index.js"
+  ],
+  "repository": "nghiattran/nn-calculator",
+  "author": {
+    "name": "nghiattran",
+    "email": "nghiattran3@gmail.com",
+    "url": "profile.nghiattran.com"
+  },
+  "license": "MIT",
+  "homepage": "",
+  "dependencies": {},
+  "devDependencies": {
+    "coveralls": "2.11.2",
+    "docdash": "^0.4.0",
+    "istanbul": "0.3.14",
+    "mocha": "2.2.5",
+    "mocha-lcov-reporter": "0.0.2"
+  }
+}

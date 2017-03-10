@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>utils.js - Documentation</title>
+
+    <script src="scripts/prettify/prettify.js"></script>
+    <script src="scripts/prettify/lang-css.js"></script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc.css">
+</head>
+<body>
+
+<input type="checkbox" id="nav-trigger" class="nav-trigger" />
+<label for="nav-trigger" class="navicon-button x">
+  <div class="navicon"></div>
+</label>
+
+<label for="nav-trigger" class="overlay"></label>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Modules</h3><ul><li><a href="module-analyzer.html">analyzer</a><ul class='methods'><li data-type='method'><a href="module-analyzer.html#~analyzeConv">analyzeConv</a></li><li data-type='method'><a href="module-analyzer.html#~analyzeFC">analyzeFC</a></li><li data-type='method'><a href="module-analyzer.html#~analyzeFlatten">analyzeFlatten</a></li><li data-type='method'><a href="module-analyzer.html#~analyzeNetwork">analyzeNetwork</a></li><li data-type='method'><a href="module-analyzer.html#~analyzePool">analyzePool</a></li></ul></li><li><a href="module-errorCheck.html">errorCheck</a><ul class='methods'><li data-type='method'><a href="module-errorCheck.html#~check2DFilter">check2DFilter</a></li><li data-type='method'><a href="module-errorCheck.html#~check2DPadding">check2DPadding</a></li><li data-type='method'><a href="module-errorCheck.html#~check2DStride">check2DStride</a></li><li data-type='method'><a href="module-errorCheck.html#~check3DFilter">check3DFilter</a></li><li data-type='method'><a href="module-errorCheck.html#~checkTFPadding">checkTFPadding</a></li></ul></li><li><a href="module-tfAnalyzer.html">tfAnalyzer</a><ul class='methods'><li data-type='method'><a href="module-tfAnalyzer.html#~analyzeConvTF">analyzeConvTF</a></li><li data-type='method'><a href="module-tfAnalyzer.html#~analyzePoolTF">analyzePoolTF</a></li><li data-type='method'><a href="module-tfAnalyzer.html#~getPaddings">getPaddings</a></li></ul></li><li><a href="module-utils.html">utils</a><ul class='methods'><li data-type='method'><a href="module-utils.html#~convertNumber">convertNumber</a></li><li data-type='method'><a href="module-utils.html#~report">report</a></li></ul></li></ul>
+</nav>
+
+<div id="main">
+    
+    <h1 class="page-title">utils.js</h1>
+    
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>'use strict';
+
+/**
+ * Utility functions.
+ * @exports utils
+ * 
+ * @param  {Number}	datasize - size of data needs to be converted
+ * @param  {Number}	floatpoint - number of floating points kept
+ * @return {String}	string representation of given data
+ */
+
+function convertData(datasize, floatpoint) {
+	floatpoint = floatpoint || 2;
+
+	let size = datasize, datatype;
+	if (datasize &lt; 1024) {
+		datatype = 'B';
+	} else if (datasize &lt; Math.pow(1024, 2)) {
+		size = datasize / 1024;
+		datatype = 'KB';
+	} else if (datasize &lt; Math.pow(1024, 3)) {
+		size = datasize / Math.pow(1024, 2);
+		datatype = 'MB';
+	} else if (datasize &lt; Math.pow(1024, 4)) {
+		size = datasize / Math.pow(1024, 3);
+		datatype = 'GB';
+	}
+	return size.toFixed(floatpoint) + datatype;
+}
+
+/**
+ * @param  {Number}	number - the number needs to be converted
+ * @param  {Number}	floatpoint - number of floating points kept
+ * @return {String}	string representation of given number
+ */
+function convertNumber(number, floatpoint) {
+	floatpoint = floatpoint || 2;
+
+	let size = number, datatype;
+	if (number &lt; 1000) {
+		datatype = '';
+	} else if (number &lt; Math.pow(1000, 2)) {
+		size = number / 1000;
+		datatype = 'K';
+	} else if (number &lt; Math.pow(1000, 3)) {
+		size = number / Math.pow(1000, 2);
+		datatype = 'M';
+	} else if (number &lt; Math.pow(1000, 4)) {
+		size = number / Math.pow(1000, 3);
+		datatype = 'B';
+	}
+
+	return size.toFixed(floatpoint) + datatype;
+}
+
+/**
+ * Print statistics report
+ * 
+ * @param  {Object}	stats
+ * @param  {Object}
+ */
+function report(stats, options) {
+	options = options || {};
+
+	for (var i = 0; i &lt; stats.layers.length; i++) {
+		let layer = stats.layers[i];
+
+		let neurons  = convertNumber(layer.neurons);
+		let weights = convertNumber(layer.weights);
+
+		console.log('Layer name:', layer.name);
+		console.log('	Type:', layer.type);
+		console.log('	Output shape:', layer.output);
+		console.log('	Number of neurons:', layer.neurons, '(', neurons, ')');
+		console.log('	Number of connections:', layer.weights, '(', weights, ')');
+		if (layer.reducedWeights) {
+			let reducedWeights = convertNumber(layer.reducedWeights);
+			console.log('	Number of reduced connections:', layer.reducedWeights, '(', reducedWeights, ')');
+		}
+
+		if (layer.memory) {
+			console.log('	Memory:', convertData(layer.memory));
+		}
+	}
+
+	let neurons  = convertNumber(stats.neurons);
+	let weights = convertNumber(stats.weights);
+	let reducedWeights = convertNumber(stats.reducedWeights);
+	console.log('Total:');
+	console.log('	', stats.neurons, '(', neurons, ')', 'neurons');
+	console.log('	', stats.weights, '(', weights, ')', 'connections');
+	console.log('	', stats.reducedWeights, '(', reducedWeights, ')', 'reduced connections');
+	if (stats.memory > 0) {
+		console.log('	 Memory:', convertData(stats.memory));
+	}
+}
+
+module.exports = {
+	convertData, convertNumber, report
+}</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.4.3</a> on Thu Mar 09 2017 23:35:21 GMT-0500 (EST) using the <a href="https://github.com/clenemt/docdash">docdash</a> theme.
+</footer>
+
+<script>prettyPrint();</script>
+<script src="scripts/linenumber.js"></script>
+</body>
+</html>

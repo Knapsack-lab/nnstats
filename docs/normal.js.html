@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>normal.js - Documentation</title>
+
+    <script src="scripts/prettify/prettify.js"></script>
+    <script src="scripts/prettify/lang-css.js"></script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc.css">
+</head>
+<body>
+
+<input type="checkbox" id="nav-trigger" class="nav-trigger" />
+<label for="nav-trigger" class="navicon-button x">
+  <div class="navicon"></div>
+</label>
+
+<label for="nav-trigger" class="overlay"></label>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Modules</h3><ul><li><a href="module-analyzer.html">analyzer</a><ul class='methods'><li data-type='method'><a href="module-analyzer.html#~analyzeConv">analyzeConv</a></li><li data-type='method'><a href="module-analyzer.html#~analyzeFC">analyzeFC</a></li><li data-type='method'><a href="module-analyzer.html#~analyzeFlatten">analyzeFlatten</a></li><li data-type='method'><a href="module-analyzer.html#~analyzeNetwork">analyzeNetwork</a></li><li data-type='method'><a href="module-analyzer.html#~analyzePool">analyzePool</a></li></ul></li><li><a href="module-errorCheck.html">errorCheck</a><ul class='methods'><li data-type='method'><a href="module-errorCheck.html#~check2DFilter">check2DFilter</a></li><li data-type='method'><a href="module-errorCheck.html#~check2DPadding">check2DPadding</a></li><li data-type='method'><a href="module-errorCheck.html#~check2DStride">check2DStride</a></li><li data-type='method'><a href="module-errorCheck.html#~check3DFilter">check3DFilter</a></li><li data-type='method'><a href="module-errorCheck.html#~checkTFPadding">checkTFPadding</a></li></ul></li><li><a href="module-tfAnalyzer.html">tfAnalyzer</a><ul class='methods'><li data-type='method'><a href="module-tfAnalyzer.html#~analyzeConvTF">analyzeConvTF</a></li><li data-type='method'><a href="module-tfAnalyzer.html#~analyzePoolTF">analyzePoolTF</a></li><li data-type='method'><a href="module-tfAnalyzer.html#~getPaddings">getPaddings</a></li></ul></li><li><a href="module-utils.html">utils</a><ul class='methods'><li data-type='method'><a href="module-utils.html#~convertNumber">convertNumber</a></li><li data-type='method'><a href="module-utils.html#~report">report</a></li></ul></li></ul>
+</nav>
+
+<div id="main">
+    
+    <h1 class="page-title">normal.js</h1>
+    
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>'use strict';
+
+/**
+ * Analyzer module.
+ * @exports analyzer
+ */
+
+let tfAnalyzer = require('./tensorflow');
+let errorCheck = require('./errorCheck');
+
+/**
+ * Calculate statistics for convolution layer
+ * 
+ * @param  {Array}	input - 2 or 3 dimension array ([height, width] or [height, width, channel])
+ * @param  {Array}	filter - 3 dimension array ([height, width, out-channel])
+ * @param  {Array}	stride - 2 dimension array ([height, width])
+ * @param  {Array}	padding - 2 or 4 dimension array ([right, down] or [up, right, down, left])
+ * @param  {Object} options
+ * @return {Object}	statistics of the convolution layer
+ *
+ * @example
+ * let input = [5, 5, 3];
+ * let filter = [2, 2, 8];
+ * let stride = [1, 1];
+ * let padding = [0, 0];
+ * let stats = analyzer.analyzeConv(input, filter, stride, padding);
+ */
+function analyzeConv(input, filter, stride, padding, options) {
+	options = options || {};
+	padding = padding || [0, 0];
+
+	input = errorCheck.check2Or3DInput(input);
+	filter = errorCheck.check3DFilter(filter);
+	stride = errorCheck.check2DStride(stride);
+	padding = errorCheck.check2DPadding(padding);
+
+	let width = Math.floor((input[0] - filter[0] + 2 * padding[0]) / stride[0] + 1);
+	let height = Math.floor((input[1] - filter[1] + 2 * padding[1]) / stride[1] + 1);
+	let channel = filter[2];
+
+	let output = [
+		width,
+		height,
+		channel
+	];
+
+	let connectionsPerNeuron =  filter[0] * filter[1] * input[2] + 1;
+	let reducedWeights = channel * filter[0] * filter[1] * input[2] + channel;
+
+	if (options['noBias'] === true) {
+		connectionsPerNeuron -= 1;
+		reducedWeights -= channel;
+	}
+
+	let neurons = width * height * channel;
+	let weights = neurons * connectionsPerNeuron;
+
+	return {
+		output, connectionsPerNeuron, neurons, weights, reducedWeights
+	}
+}
+
+/**
+ * Calculate statistics for pooling layer
+ * 
+ * @param  {Array}	input - 2 or 3 dimension array ([height, width] or [height, width, channel])
+ * @param  {Array}	filter - 2 dimension array ([height, width])
+ * @param  {Array}	stride - 2 dimension array ([height, width])
+ * @param  {String}	padding - The padding algorithm. Either "VALID" or "SAME".
+ * @param  {Object} options
+ * @return {Object}	statistics of the pooling layer
+ */
+function analyzePool(input, filter, stride, padding, options) {
+	options = options || {};
+	padding = padding || [0, 0];
+
+	input = errorCheck.check2Or3DInput(input);
+	filter = errorCheck.check2DFilter(filter);
+	stride = errorCheck.check2DStride(stride);
+	padding = errorCheck.check2DPadding(padding);
+
+	let width = Math.floor((input[0] - filter[0] + 2 * padding[0]) / stride[0] + 1);
+	let height = Math.floor((input[1] - filter[1] + 2 * padding[1]) / stride[1] + 1);
+	let channel = input[2];
+
+	let output = [
+		width,
+		height,
+		channel
+	];
+
+	let neurons = width * height * channel;
+
+	return {
+		output, 
+		connectionsPerNeuron: 0, 
+		neurons, 
+		weights: 0
+	}
+}
+
+/**
+ * Calculate statistics for fully-connected layer.
+ * 
+ * @param  {Number}	input - number of neurons in input layer.
+ * @param  {Number}	hidden - number of neurons in hidden layer.
+ * @return {Object} statistics
+ */
+function analyzeFC(input, hidden, options) {
+	options = options || {};
+
+	return {
+		output: hidden,
+		neurons: hidden,
+		weights: input * hidden
+	}
+}
+
+/**
+ * Calculate statistics for flatten layer.
+ * 
+ * @param  {Array}	input - number of neurons in input layer.
+ * @param  {Number}	hidden - number of neurons in hidden layer.
+ * @return {Object} statistics
+ */
+function analyzeFlatten(input, hidden, options) {
+	options = options || {};
+
+	input = errorCheck.check2Or3DInput(input);
+
+	let connectionsPerNeuron =  0;
+	let neurons = 0;
+	let weights = input[0] * input[1] * input[2] * hidden;
+	let output = hidden;
+
+	return {
+		output, connectionsPerNeuron, neurons, weights
+	}
+}
+
+/**
+ * Calculate statistics of a network
+ * 
+ * @param  {Object} networkJson - network's architecture in json format
+ * @param  {Array}	input - 2 or 3 dimension array ([height, width] or [height, width, channel])
+ * @param  {Object}	options
+ * @return {Object}	statistics
+ */
+function analyzeNetwork(networkJson, input, options) {
+	options = options || {};
+
+	input = errorCheck.check2Or3DInput(input);
+
+	let layers = [];
+	let stat;
+	let neurons = 0;
+	let weights = 0;
+	let memory = 0;
+	let reducedWeights = 0;
+
+	for (var i = 0; i &lt; networkJson.length; i++) {
+		let layer = networkJson[i];
+		stat = {};
+
+		if (layer.type === 'conv') {
+			// If tensorflow flag is set, user TF analyzer instead
+			if (options.tensorflow)
+				stat = tfAnalyzer.analyzeConvTF(input, layer.filter, layer.stride, layer.padding, options);
+			else
+				stat = analyzeConv(input, layer.filter, layer.stride, layer.padding, options);
+		} else if (layer.type === 'pool') {
+			// If tensorflow flag is set, user TF analyzer instead
+			if (options.tensorflow)
+				stat = tfAnalyzer.analyzePoolTF(input, layer.filter, layer.stride, layer.padding, options);
+			else
+				stat = analyzePool(input, layer.filter, layer.stride, layer.padding, options);
+		} else if (layer.type === 'fc') {
+			if (i > 0 &amp;&amp; (networkJson[i - 1].type === 'pool' || networkJson[i - 1].type === 'conv'))
+				stat = analyzeFlatten(input, layer.hidden, options);
+			else
+				stat = analyzeFC(input, layer.hidden, options);
+		}
+
+		if (layer.datasize > 0) {
+			stat.memory = layer.datasize * stat.neurons;
+			memory += stat.memory;
+		}
+
+		stat.datasize = layer.datasize;
+		stat.type = layer.type;
+		stat.name = layer.name || layer.type + (i + 1);
+		neurons += stat.neurons;
+		weights += stat.weights;
+
+		if (stat.reducedWeights) {
+			reducedWeights += stat.reducedWeights;
+		} else {
+			stat.reducedWeights = stat.weights;
+			reducedWeights += stat.weights;
+		}
+
+		layers.push(stat);
+		input = stat.output;
+	}
+	return {
+		neurons,
+		weights,
+		reducedWeights,
+		layers,
+		memory,
+		output: stat.output
+	};
+}
+
+module.exports = {
+	analyzeFC,
+	analyzeFlatten,
+	analyzePool,
+	analyzeConv,
+	analyzeNetwork
+};</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.4.3</a> on Thu Mar 09 2017 23:35:21 GMT-0500 (EST) using the <a href="https://github.com/clenemt/docdash">docdash</a> theme.
+</footer>
+
+<script>prettyPrint();</script>
+<script src="scripts/linenumber.js"></script>
+</body>
+</html>
