@@ -22,7 +22,7 @@
 <label for="nav-trigger" class="overlay"></label>
 
 <nav>
-    <h2><a href="index.html">Home</a></h2><h3>Modules</h3><ul><li><a href="module-analyzer.html">analyzer</a><ul class='methods'><li data-type='method'><a href="module-analyzer.html#~analyzeConv">analyzeConv</a></li><li data-type='method'><a href="module-analyzer.html#~analyzeFC">analyzeFC</a></li><li data-type='method'><a href="module-analyzer.html#~analyzeFlatten">analyzeFlatten</a></li><li data-type='method'><a href="module-analyzer.html#~analyzeNetwork">analyzeNetwork</a></li><li data-type='method'><a href="module-analyzer.html#~analyzePool">analyzePool</a></li></ul></li><li><a href="module-errorCheck.html">errorCheck</a><ul class='methods'><li data-type='method'><a href="module-errorCheck.html#~check2DFilter">check2DFilter</a></li><li data-type='method'><a href="module-errorCheck.html#~check2DPadding">check2DPadding</a></li><li data-type='method'><a href="module-errorCheck.html#~check2DStride">check2DStride</a></li><li data-type='method'><a href="module-errorCheck.html#~check3DFilter">check3DFilter</a></li><li data-type='method'><a href="module-errorCheck.html#~checkTFPadding">checkTFPadding</a></li></ul></li><li><a href="module-tfAnalyzer.html">tfAnalyzer</a><ul class='methods'><li data-type='method'><a href="module-tfAnalyzer.html#~analyzeConvTF">analyzeConvTF</a></li><li data-type='method'><a href="module-tfAnalyzer.html#~analyzePoolTF">analyzePoolTF</a></li><li data-type='method'><a href="module-tfAnalyzer.html#~getPaddings">getPaddings</a></li></ul></li><li><a href="module-utils.html">utils</a><ul class='methods'><li data-type='method'><a href="module-utils.html#~convertNumber">convertNumber</a></li><li data-type='method'><a href="module-utils.html#~report">report</a></li></ul></li></ul>
+    <h2><a href="index.html">Home</a></h2><h3>Modules</h3><ul><li><a href="module-analyzer.html">analyzer</a><ul class='methods'><li data-type='method'><a href="module-analyzer.html#~analyzeConv">analyzeConv</a></li><li data-type='method'><a href="module-analyzer.html#~analyzeFC">analyzeFC</a></li><li data-type='method'><a href="module-analyzer.html#~analyzeFlatten">analyzeFlatten</a></li><li data-type='method'><a href="module-analyzer.html#~analyzeNetwork">analyzeNetwork</a></li><li data-type='method'><a href="module-analyzer.html#~analyzePool">analyzePool</a></li></ul></li><li><a href="module-errorCheck.html">errorCheck</a><ul class='methods'><li data-type='method'><a href="module-errorCheck.html#~check2DFilter">check2DFilter</a></li><li data-type='method'><a href="module-errorCheck.html#~check2DPadding">check2DPadding</a></li><li data-type='method'><a href="module-errorCheck.html#~check2Dstrides">check2Dstrides</a></li><li data-type='method'><a href="module-errorCheck.html#~check3DFilter">check3DFilter</a></li><li data-type='method'><a href="module-errorCheck.html#~checkTFPadding">checkTFPadding</a></li></ul></li><li><a href="module-tfAnalyzer.html">tfAnalyzer</a><ul class='methods'><li data-type='method'><a href="module-tfAnalyzer.html#~analyzeConvTF">analyzeConvTF</a></li><li data-type='method'><a href="module-tfAnalyzer.html#~analyzePoolTF">analyzePoolTF</a></li><li data-type='method'><a href="module-tfAnalyzer.html#~getPaddings">getPaddings</a></li></ul></li><li><a href="module-utils.html">utils</a><ul class='methods'><li data-type='method'><a href="module-utils.html#~convertNumber">convertNumber</a></li><li data-type='method'><a href="module-utils.html#~report">report</a></li></ul></li></ul>
 </nav>
 
 <div id="main">
@@ -87,17 +87,17 @@ function check3DFilter(filter) {
 }
 
 /**
- * Check if stride is in correct type.
- * @param  {Array}	stride - 2 dimension array ([height, width])
- * @return {Array}  stride - 4d stride array
+ * Check if strides is in correct type.
+ * @param  {Array}	strides - 2 dimension array ([height, width])
+ * @return {Array}  strides - 4d strides array
  *
- * @throws Will throw an error if the stride is not a 2D array.
+ * @throws Will throw an error if the strides is not a 2D array.
  */
-function check2DStride(stride) {
-	if (stride.constructor !== Array || stride.length !== 2) 
-		throw Error('Stride size must be 2 dimensional ([height, width])');
+function check2Dstrides(strides) {
+	if (strides.constructor !== Array || strides.length !== 2) 
+		throw Error('strides size must be 2 dimensional ([height, width])');
 
-	return stride;
+	return strides;
 }
 
 /**
@@ -109,7 +109,7 @@ function check2DStride(stride) {
  */
 function check2DPadding(padding) {
 	if (padding.constructor !== Array || padding.length !== 2) 
-		throw Error('Stride size must be 2 dimensional ([height, width])');
+		throw Error('strides size must be 2 dimensional ([height, width])');
 
 	return padding;
 }
@@ -133,7 +133,7 @@ module.exports = {
 	check2DFilter,
 	check2DPadding,
 	checkTFPadding,
-	check2DStride,
+	check2Dstrides,
 	check2Or3DInput
 }</code></pre>
         </article>

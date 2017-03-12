@@ -27,25 +27,25 @@ let utils = nnStats.utils;
 let model = [{
 	'type': 'conv',
 	'filter': [5, 5, 32],
-	'stride': [1, 1],
+	'strides': [1, 1],
 	'padding': 'SAME',
 	'datasize': 4
 },{
 	'type': 'pool',
 	'filter': [2, 2],
-	'stride': [2, 2],
+	'strides': [2, 2],
 	'padding': 'SAME',
 	'datasize': 4
 },{
 	'type': 'conv',
 	'filter': [5, 5, 64],
-	'stride': [2, 2],
+	'strides': [2, 2],
 	'padding': 'SAME',
 	'datasize': 4
 },{
 	'type': 'pool',
 	'filter': [2, 2],
-	'stride': [2, 2],
+	'strides': [2, 2],
 	'padding': 'SAME',
 	'datasize': 4
 },{
@@ -74,14 +74,14 @@ Currently, here are 3 supported layers type: convolution layer (`conv`), pooling
 Fields in `conv` layer:
 
 1. `filter`: 3D array kernal size (height, width, outChannel).
-2. `stride`: 2D array stride size (height, width).
+2. `strides`: 2D array strides size (height, width).
 3. `padding`: 2D array padding size (height, width).
 4. `datasize` (optional): number of byte of one value (for `float32`, this should be `4` because `32 / 8 = 4`). This value is used to calculate how much memory needed for the network.
 
 Fields in `pool` layer:
 
 1. `filter`: 2D array kernal size (height, width).
-2. `stride`: 2D array stride size (height, width).
+2. `strides`: 2D array strides size (height, width).
 3. `padding`: 2D array padding size (height, width).
 4. `datasize` (optional): number of byte of one value (for `float32`, this should be `4` because `32 / 8 = 4`). This value is used to calculate how much memory needed for the network.
 

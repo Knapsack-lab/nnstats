@@ -22,7 +22,7 @@
 <label for="nav-trigger" class="overlay"></label>
 
 <nav>
-    <h2><a href="index.html">Home</a></h2><h3>Modules</h3><ul><li><a href="module-analyzer.html">analyzer</a><ul class='methods'><li data-type='method'><a href="module-analyzer.html#~analyzeConv">analyzeConv</a></li><li data-type='method'><a href="module-analyzer.html#~analyzeFC">analyzeFC</a></li><li data-type='method'><a href="module-analyzer.html#~analyzeFlatten">analyzeFlatten</a></li><li data-type='method'><a href="module-analyzer.html#~analyzeNetwork">analyzeNetwork</a></li><li data-type='method'><a href="module-analyzer.html#~analyzePool">analyzePool</a></li></ul></li><li><a href="module-errorCheck.html">errorCheck</a><ul class='methods'><li data-type='method'><a href="module-errorCheck.html#~check2DFilter">check2DFilter</a></li><li data-type='method'><a href="module-errorCheck.html#~check2DPadding">check2DPadding</a></li><li data-type='method'><a href="module-errorCheck.html#~check2DStride">check2DStride</a></li><li data-type='method'><a href="module-errorCheck.html#~check3DFilter">check3DFilter</a></li><li data-type='method'><a href="module-errorCheck.html#~checkTFPadding">checkTFPadding</a></li></ul></li><li><a href="module-tfAnalyzer.html">tfAnalyzer</a><ul class='methods'><li data-type='method'><a href="module-tfAnalyzer.html#~analyzeConvTF">analyzeConvTF</a></li><li data-type='method'><a href="module-tfAnalyzer.html#~analyzePoolTF">analyzePoolTF</a></li><li data-type='method'><a href="module-tfAnalyzer.html#~getPaddings">getPaddings</a></li></ul></li><li><a href="module-utils.html">utils</a><ul class='methods'><li data-type='method'><a href="module-utils.html#~convertNumber">convertNumber</a></li><li data-type='method'><a href="module-utils.html#~report">report</a></li></ul></li></ul>
+    <h2><a href="index.html">Home</a></h2><h3>Modules</h3><ul><li><a href="module-analyzer.html">analyzer</a><ul class='methods'><li data-type='method'><a href="module-analyzer.html#~analyzeConv">analyzeConv</a></li><li data-type='method'><a href="module-analyzer.html#~analyzeFC">analyzeFC</a></li><li data-type='method'><a href="module-analyzer.html#~analyzeFlatten">analyzeFlatten</a></li><li data-type='method'><a href="module-analyzer.html#~analyzeNetwork">analyzeNetwork</a></li><li data-type='method'><a href="module-analyzer.html#~analyzePool">analyzePool</a></li></ul></li><li><a href="module-errorCheck.html">errorCheck</a><ul class='methods'><li data-type='method'><a href="module-errorCheck.html#~check2DFilter">check2DFilter</a></li><li data-type='method'><a href="module-errorCheck.html#~check2DPadding">check2DPadding</a></li><li data-type='method'><a href="module-errorCheck.html#~check2Dstrides">check2Dstrides</a></li><li data-type='method'><a href="module-errorCheck.html#~check3DFilter">check3DFilter</a></li><li data-type='method'><a href="module-errorCheck.html#~checkTFPadding">checkTFPadding</a></li></ul></li><li><a href="module-tfAnalyzer.html">tfAnalyzer</a><ul class='methods'><li data-type='method'><a href="module-tfAnalyzer.html#~analyzeConvTF">analyzeConvTF</a></li><li data-type='method'><a href="module-tfAnalyzer.html#~analyzePoolTF">analyzePoolTF</a></li><li data-type='method'><a href="module-tfAnalyzer.html#~getPaddings">getPaddings</a></li></ul></li><li><a href="module-utils.html">utils</a><ul class='methods'><li data-type='method'><a href="module-utils.html#~convertNumber">convertNumber</a></li><li data-type='method'><a href="module-utils.html#~report">report</a></li></ul></li></ul>
 </nav>
 
 <div id="main">
@@ -150,7 +150,7 @@
 
     
 
-    <h4 class="name" id="~analyzeConv"><span class="type-signature">(inner) </span>analyzeConv<span class="signature">(input, filter, stride, padding, options)</span><span class="type-signature"> &rarr; {Object}</span></h4>
+    <h4 class="name" id="~analyzeConv"><span class="type-signature">(inner) </span>analyzeConv<span class="signature">(input, filter, strides, padding, options)</span><span class="type-signature"> &rarr; {Object}</span></h4>
 
     
 
@@ -217,9 +217,9 @@
     
     <pre class="prettyprint"><code>let input = [5, 5, 3];
 let filter = [2, 2, 8];
-let stride = [1, 1];
+let strides = [1, 1];
 let padding = [0, 0];
-let stats = analyzer.analyzeConv(input, filter, stride, padding);</code></pre>
+let stats = analyzer.analyzeConv(input, filter, strides, padding);</code></pre>
 
 
 
@@ -295,7 +295,7 @@ let stats = analyzer.analyzeConv(input, filter, stride, padding);</code></pre>
 
         <tr>
             
-                <td class="name"><code>stride</code></td>
+                <td class="name"><code>strides</code></td>
             
 
             <td class="type">
@@ -963,7 +963,7 @@ let stats = analyzer.analyzeConv(input, filter, stride, padding);</code></pre>
 
     
 
-    <h4 class="name" id="~analyzePool"><span class="type-signature">(inner) </span>analyzePool<span class="signature">(input, filter, stride, padding, options)</span><span class="type-signature"> &rarr; {Object}</span></h4>
+    <h4 class="name" id="~analyzePool"><span class="type-signature">(inner) </span>analyzePool<span class="signature">(input, filter, strides, padding, options)</span><span class="type-signature"> &rarr; {Object}</span></h4>
 
     
 
@@ -1099,7 +1099,7 @@ let stats = analyzer.analyzeConv(input, filter, stride, padding);</code></pre>
 
         <tr>
             
-                <td class="name"><code>stride</code></td>
+                <td class="name"><code>strides</code></td>
             
 
             <td class="type">

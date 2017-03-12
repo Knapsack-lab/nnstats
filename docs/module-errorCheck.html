@@ -22,7 +22,7 @@
 <label for="nav-trigger" class="overlay"></label>
 
 <nav>
-    <h2><a href="index.html">Home</a></h2><h3>Modules</h3><ul><li><a href="module-analyzer.html">analyzer</a><ul class='methods'><li data-type='method'><a href="module-analyzer.html#~analyzeConv">analyzeConv</a></li><li data-type='method'><a href="module-analyzer.html#~analyzeFC">analyzeFC</a></li><li data-type='method'><a href="module-analyzer.html#~analyzeFlatten">analyzeFlatten</a></li><li data-type='method'><a href="module-analyzer.html#~analyzeNetwork">analyzeNetwork</a></li><li data-type='method'><a href="module-analyzer.html#~analyzePool">analyzePool</a></li></ul></li><li><a href="module-errorCheck.html">errorCheck</a><ul class='methods'><li data-type='method'><a href="module-errorCheck.html#~check2DFilter">check2DFilter</a></li><li data-type='method'><a href="module-errorCheck.html#~check2DPadding">check2DPadding</a></li><li data-type='method'><a href="module-errorCheck.html#~check2DStride">check2DStride</a></li><li data-type='method'><a href="module-errorCheck.html#~check3DFilter">check3DFilter</a></li><li data-type='method'><a href="module-errorCheck.html#~checkTFPadding">checkTFPadding</a></li></ul></li><li><a href="module-tfAnalyzer.html">tfAnalyzer</a><ul class='methods'><li data-type='method'><a href="module-tfAnalyzer.html#~analyzeConvTF">analyzeConvTF</a></li><li data-type='method'><a href="module-tfAnalyzer.html#~analyzePoolTF">analyzePoolTF</a></li><li data-type='method'><a href="module-tfAnalyzer.html#~getPaddings">getPaddings</a></li></ul></li><li><a href="module-utils.html">utils</a><ul class='methods'><li data-type='method'><a href="module-utils.html#~convertNumber">convertNumber</a></li><li data-type='method'><a href="module-utils.html#~report">report</a></li></ul></li></ul>
+    <h2><a href="index.html">Home</a></h2><h3>Modules</h3><ul><li><a href="module-analyzer.html">analyzer</a><ul class='methods'><li data-type='method'><a href="module-analyzer.html#~analyzeConv">analyzeConv</a></li><li data-type='method'><a href="module-analyzer.html#~analyzeFC">analyzeFC</a></li><li data-type='method'><a href="module-analyzer.html#~analyzeFlatten">analyzeFlatten</a></li><li data-type='method'><a href="module-analyzer.html#~analyzeNetwork">analyzeNetwork</a></li><li data-type='method'><a href="module-analyzer.html#~analyzePool">analyzePool</a></li></ul></li><li><a href="module-errorCheck.html">errorCheck</a><ul class='methods'><li data-type='method'><a href="module-errorCheck.html#~check2DFilter">check2DFilter</a></li><li data-type='method'><a href="module-errorCheck.html#~check2DPadding">check2DPadding</a></li><li data-type='method'><a href="module-errorCheck.html#~check2Dstrides">check2Dstrides</a></li><li data-type='method'><a href="module-errorCheck.html#~check3DFilter">check3DFilter</a></li><li data-type='method'><a href="module-errorCheck.html#~checkTFPadding">checkTFPadding</a></li></ul></li><li><a href="module-tfAnalyzer.html">tfAnalyzer</a><ul class='methods'><li data-type='method'><a href="module-tfAnalyzer.html#~analyzeConvTF">analyzeConvTF</a></li><li data-type='method'><a href="module-tfAnalyzer.html#~analyzePoolTF">analyzePoolTF</a></li><li data-type='method'><a href="module-tfAnalyzer.html#~getPaddings">getPaddings</a></li></ul></li><li><a href="module-utils.html">utils</a><ul class='methods'><li data-type='method'><a href="module-utils.html#~convertNumber">convertNumber</a></li><li data-type='method'><a href="module-utils.html#~report">report</a></li></ul></li></ul>
 </nav>
 
 <div id="main">
@@ -567,7 +567,7 @@
 
     
 
-    <h4 class="name" id="~check2DStride"><span class="type-signature">(inner) </span>check2DStride<span class="signature">(stride)</span><span class="type-signature"> &rarr; {Array}</span></h4>
+    <h4 class="name" id="~check2Dstrides"><span class="type-signature">(inner) </span>check2Dstrides<span class="signature">(strides)</span><span class="type-signature"> &rarr; {Array}</span></h4>
 
     
 
@@ -619,7 +619,7 @@
 
 
 <div class="description">
-    <p>Check if stride is in correct type.</p>
+    <p>Check if strides is in correct type.</p>
 </div>
 
 
@@ -657,7 +657,7 @@
 
         <tr>
             
-                <td class="name"><code>stride</code></td>
+                <td class="name"><code>strides</code></td>
             
 
             <td class="type">
@@ -697,7 +697,7 @@
 
     <div class="param-desc">
     
-        <p>Will throw an error if the stride is not a 2D array.</p>
+        <p>Will throw an error if the strides is not a 2D array.</p>
     
     </div>
 
@@ -709,7 +709,7 @@
 
         
 <div class="param-desc">
-    <p>stride - 4d stride array</p>
+    <p>strides - 4d strides array</p>
 </div>
 
 

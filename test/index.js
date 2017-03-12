@@ -13,11 +13,11 @@ describe('Test normal', function () {
 			it('Check output size 1', function() {
 				let input = [7, 7, 3];
 				let filter = [3, 3, 8];
-				let stride = [1, 1];
+				let strides = [1, 1];
 				let padding = [0, 0];
 				let expected = [5, 5, 8];
 
-				let res = analyzer.analyzeConv(input, filter, stride, padding);
+				let res = analyzer.analyzeConv(input, filter, strides, padding);
 
 				assert(expected.length === res.output.length);
 
@@ -29,11 +29,11 @@ describe('Test normal', function () {
 			it('Check output size 2', function() {
 				let input = [7, 7, 3];
 				let filter = [3, 3, 8];
-				let stride = [2, 2];
+				let strides = [2, 2];
 				let padding = [0, 0];
 				let expected = [3, 3, 8];
 
-				let res = analyzer.analyzeConv(input, filter, stride, padding);
+				let res = analyzer.analyzeConv(input, filter, strides, padding);
 
 				assert(expected.length === res.output.length);
 
@@ -45,11 +45,11 @@ describe('Test normal', function () {
 			it('Check input size of 2', function() {
 				let input = [7, 7];
 				let filter = [3, 3, 8];
-				let stride = [2, 2];
+				let strides = [2, 2];
 				let padding = [0, 0];
 				let expected = [3, 3, 8];
 
-				let res = analyzer.analyzeConv(input, filter, stride, padding);
+				let res = analyzer.analyzeConv(input, filter, strides, padding);
 
 				assert(expected.length === res.output.length);
 
@@ -61,11 +61,11 @@ describe('Test normal', function () {
 			it('Check tride size of 2', function() {
 				let input = [7, 7, 3];
 				let filter = [3, 3, 8];
-				let stride = [2, 2];
+				let strides = [2, 2];
 				let padding = [0, 0];
 				let expected = [3, 3, 8];
 
-				let res = analyzer.analyzeConv(input, filter, stride, padding);
+				let res = analyzer.analyzeConv(input, filter, strides, padding);
 
 				assert(expected.length === res.output.length);
 
@@ -77,11 +77,11 @@ describe('Test normal', function () {
 			it('Check padding size of 2', function() {
 				let input = [7, 7, 3];
 				let filter = [3, 3, 8];
-				let stride = [2, 2];
+				let strides = [2, 2];
 				let padding = [0, 0];
 				let expected = [3, 3, 8];
 
-				let res = analyzer.analyzeConv(input, filter, stride, padding);
+				let res = analyzer.analyzeConv(input, filter, strides, padding);
 
 				assert(expected.length === res.output.length);
 
@@ -93,11 +93,11 @@ describe('Test normal', function () {
 			it('Check output size with padding', function() {
 				let input = [5, 5, 3];
 				let filter = [3, 3, 2];
-				let stride = [2, 2];
+				let strides = [2, 2];
 				let padding = [1, 1];
 				let expected = [3, 3, 2];
 
-				let res = analyzer.analyzeConv(input, filter, stride, padding);
+				let res = analyzer.analyzeConv(input, filter, strides, padding);
 
 				assert(expected.length === res.output.length);
 				
@@ -109,12 +109,12 @@ describe('Test normal', function () {
 			it('Check weights', function() {
 				let input = [227, 227, 3];
 				let filter = [11, 11, 96];
-				let stride = [4, 4];
+				let strides = [4, 4];
 				let padding = [0, 0];
 				let expected = [55, 55, 96];
 				let expectedWeights = 105705600;
 
-				let res = analyzer.analyzeConv(input, filter, stride, padding);
+				let res = analyzer.analyzeConv(input, filter, strides, padding);
 
 				assert(expected.length === res.output.length);
 
@@ -128,12 +128,12 @@ describe('Test normal', function () {
 			it('Check reduced weights', function() {
 				let input = [227, 227, 3];
 				let filter = [11, 11, 96];
-				let stride = [4, 4];
+				let strides = [4, 4];
 				let padding = [0, 0];
 				let expected = [55, 55, 96];
 				let expectedReducedWeights = 34944;
 
-				let res = analyzer.analyzeConv(input, filter, stride, padding);
+				let res = analyzer.analyzeConv(input, filter, strides, padding);
 
 				assert(expected.length === res.output.length);
 
@@ -147,12 +147,12 @@ describe('Test normal', function () {
 			it('Check reduced weights no bias', function() {
 				let input = [227, 227, 3];
 				let filter = [11, 11, 96];
-				let stride = [4, 4];
+				let strides = [4, 4];
 				let padding = [0, 0];
 				let expected = [55, 55, 96];
 				let expectedReducedWeights = 34848;
 
-				let res = analyzer.analyzeConv(input, filter, stride, padding, {'noBias': true});
+				let res = analyzer.analyzeConv(input, filter, strides, padding, {'noBias': true});
 
 				assert(expected.length === res.output.length);
 
@@ -168,10 +168,10 @@ describe('Test normal', function () {
 			it('Check output size 1', function() {
 				let input = [4, 4, 1];
 				let filter = [2, 2];
-				let stride = [2, 2];
+				let strides = [2, 2];
 				let expected = [2, 2, 1];
 
-				let res = analyzer.analyzePool(input, filter, stride);
+				let res = analyzer.analyzePool(input, filter, strides);
 
 				assert(expected.length === res.output.length);
 				for (var i = 0; i < expected.length; i++) {
@@ -182,10 +182,10 @@ describe('Test normal', function () {
 			it('Check output size 2', function() {
 				let input = [224, 224, 64];
 				let filter = [2, 2];
-				let stride = [2, 2];
+				let strides = [2, 2];
 				let expected = [112, 112, 64];
 
-				let res = analyzer.analyzePool(input, filter, stride);
+				let res = analyzer.analyzePool(input, filter, strides);
 
 				assert(expected.length === res.output.length);
 				for (var i = 0; i < expected.length; i++) {
@@ -196,10 +196,10 @@ describe('Test normal', function () {
 			it('Check input size of 2', function() {
 				let input = [4, 4];
 				let filter = [2, 2];
-				let stride = [2, 2];
+				let strides = [2, 2];
 				let expected = [2, 2, 1];
 
-				let res = analyzer.analyzePool(input, filter, stride);
+				let res = analyzer.analyzePool(input, filter, strides);
 
 				assert(expected.length === res.output.length);
 				for (var i = 0; i < expected.length; i++) {
@@ -210,10 +210,10 @@ describe('Test normal', function () {
 			it('Check tride size of 2', function() {
 				let input = [4, 4, 1];
 				let filter = [2, 2];
-				let stride = [2, 2];
+				let strides = [2, 2];
 				let expected = [2, 2, 1];
 
-				let res = analyzer.analyzePool(input, filter, stride);
+				let res = analyzer.analyzePool(input, filter, strides);
 
 				assert(expected.length === res.output.length);
 				for (var i = 0; i < expected.length; i++) {
@@ -224,11 +224,11 @@ describe('Test normal', function () {
 			it('Check padding size of 2', function() {
 				let input = [4, 4, 1];
 				let filter = [2, 2];
-				let stride = [2, 2];
+				let strides = [2, 2];
 				let padding = [0, 0];
 				let expected = [2, 2, 1];
 
-				let res = analyzer.analyzePool(input, filter, stride, padding);
+				let res = analyzer.analyzePool(input, filter, strides, padding);
 
 				assert(expected.length === res.output.length);
 				for (var i = 0; i < expected.length; i++) {
@@ -241,11 +241,11 @@ describe('Test normal', function () {
 			it('Check output size 1', function() {
 				let input = [28, 28, 1];
 				let filter = [5, 5, 32];
-				let stride = [1, 1, 1, 1];
+				let strides = [1, 1, 1, 1];
 				let padding = 'SAME';
 				let expected = [28, 28, 32];
 
-				let res = tfAnalyzer.analyzeConvTF(input, filter, stride, padding);
+				let res = tfAnalyzer.analyzeConvTF(input, filter, strides, padding);
 
 				assert(expected.length === res.output.length);
 				for (var i = 0; i < expected.length; i++) {
@@ -256,11 +256,11 @@ describe('Test normal', function () {
 			it('Check output size 2', function() {
 				let input = [14, 14, 32];
 				let filter = [5, 5, 64];
-				let stride = [1, 1, 1, 1];
+				let strides = [1, 1, 1, 1];
 				let padding = 'SAME';
 				let expected = [14, 14, 64];
 
-				let res = tfAnalyzer.analyzeConvTF(input, filter, stride, padding);
+				let res = tfAnalyzer.analyzeConvTF(input, filter, strides, padding);
 
 				assert(expected.length === res.output.length);
 
@@ -274,11 +274,11 @@ describe('Test normal', function () {
 			it('Check output size 1: SAME padding', function() {
 				let input = [28, 28, 32];
 				let filter = [2, 2];
-				let stride = [1, 2, 2, 1];
+				let strides = [1, 2, 2, 1];
 				let padding = 'SAME';
 				let expected = [14, 14, 32];
 
-				let res = tfAnalyzer.analyzePoolTF(input, filter, stride, padding);
+				let res = tfAnalyzer.analyzePoolTF(input, filter, strides, padding);
 
 				assert(expected.length === res.output.length);
 
@@ -290,11 +290,11 @@ describe('Test normal', function () {
 			it('Check output size 2: SAME padding', function() {
 				let input = [28, 28, 64];
 				let filter = [4, 4];
-				let stride = [1, 4, 4, 1];
+				let strides = [1, 4, 4, 1];
 				let padding = 'SAME';
 				let expected = [7, 7, 64];
 
-				let res = tfAnalyzer.analyzePoolTF(input, filter, stride, padding);
+				let res = tfAnalyzer.analyzePoolTF(input, filter, strides, padding);
 
 				assert(expected.length === res.output.length);
 				for (var i = 0; i < expected.length; i++) {
@@ -305,11 +305,11 @@ describe('Test normal', function () {
 			it('Check output size 1: VALID padding', function() {
 				let input = [13, 1, 1];
 				let filter = [6, 1];
-				let stride = [1, 5, 1, 1];
+				let strides = [1, 5, 1, 1];
 				let padding = 'VALID';
 				let expected = [2, 1, 1];
 
-				let res = tfAnalyzer.analyzePoolTF(input, filter, stride, padding);
+				let res = tfAnalyzer.analyzePoolTF(input, filter, strides, padding);
 
 				assert(expected.length === res.output.length);
 				for (var i = 0; i < expected.length; i++) {

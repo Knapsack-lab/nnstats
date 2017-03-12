@@ -22,7 +22,7 @@
 <label for="nav-trigger" class="overlay"></label>
 
 <nav>
-    <h2><a href="index.html">Home</a></h2><h3>Modules</h3><ul><li><a href="module-analyzer.html">analyzer</a><ul class='methods'><li data-type='method'><a href="module-analyzer.html#~analyzeConv">analyzeConv</a></li><li data-type='method'><a href="module-analyzer.html#~analyzeFC">analyzeFC</a></li><li data-type='method'><a href="module-analyzer.html#~analyzeFlatten">analyzeFlatten</a></li><li data-type='method'><a href="module-analyzer.html#~analyzeNetwork">analyzeNetwork</a></li><li data-type='method'><a href="module-analyzer.html#~analyzePool">analyzePool</a></li></ul></li><li><a href="module-errorCheck.html">errorCheck</a><ul class='methods'><li data-type='method'><a href="module-errorCheck.html#~check2DFilter">check2DFilter</a></li><li data-type='method'><a href="module-errorCheck.html#~check2DPadding">check2DPadding</a></li><li data-type='method'><a href="module-errorCheck.html#~check2DStride">check2DStride</a></li><li data-type='method'><a href="module-errorCheck.html#~check3DFilter">check3DFilter</a></li><li data-type='method'><a href="module-errorCheck.html#~checkTFPadding">checkTFPadding</a></li></ul></li><li><a href="module-tfAnalyzer.html">tfAnalyzer</a><ul class='methods'><li data-type='method'><a href="module-tfAnalyzer.html#~analyzeConvTF">analyzeConvTF</a></li><li data-type='method'><a href="module-tfAnalyzer.html#~analyzePoolTF">analyzePoolTF</a></li><li data-type='method'><a href="module-tfAnalyzer.html#~getPaddings">getPaddings</a></li></ul></li><li><a href="module-utils.html">utils</a><ul class='methods'><li data-type='method'><a href="module-utils.html#~convertNumber">convertNumber</a></li><li data-type='method'><a href="module-utils.html#~report">report</a></li></ul></li></ul>
+    <h2><a href="index.html">Home</a></h2><h3>Modules</h3><ul><li><a href="module-analyzer.html">analyzer</a><ul class='methods'><li data-type='method'><a href="module-analyzer.html#~analyzeConv">analyzeConv</a></li><li data-type='method'><a href="module-analyzer.html#~analyzeFC">analyzeFC</a></li><li data-type='method'><a href="module-analyzer.html#~analyzeFlatten">analyzeFlatten</a></li><li data-type='method'><a href="module-analyzer.html#~analyzeNetwork">analyzeNetwork</a></li><li data-type='method'><a href="module-analyzer.html#~analyzePool">analyzePool</a></li></ul></li><li><a href="module-errorCheck.html">errorCheck</a><ul class='methods'><li data-type='method'><a href="module-errorCheck.html#~check2DFilter">check2DFilter</a></li><li data-type='method'><a href="module-errorCheck.html#~check2DPadding">check2DPadding</a></li><li data-type='method'><a href="module-errorCheck.html#~check2Dstrides">check2Dstrides</a></li><li data-type='method'><a href="module-errorCheck.html#~check3DFilter">check3DFilter</a></li><li data-type='method'><a href="module-errorCheck.html#~checkTFPadding">checkTFPadding</a></li></ul></li><li><a href="module-tfAnalyzer.html">tfAnalyzer</a><ul class='methods'><li data-type='method'><a href="module-tfAnalyzer.html#~analyzeConvTF">analyzeConvTF</a></li><li data-type='method'><a href="module-tfAnalyzer.html#~analyzePoolTF">analyzePoolTF</a></li><li data-type='method'><a href="module-tfAnalyzer.html#~getPaddings">getPaddings</a></li></ul></li><li><a href="module-utils.html">utils</a><ul class='methods'><li data-type='method'><a href="module-utils.html#~convertNumber">convertNumber</a></li><li data-type='method'><a href="module-utils.html#~report">report</a></li></ul></li></ul>
 </nav>
 
 <div id="main">
@@ -61,25 +61,25 @@ let utils = nnStats.utils;
 let model = [{
     'type': 'conv',
     'filter': [5, 5, 32],
-    'stride': [1, 1],
+    'strides': [1, 1],
     'padding': 'SAME',
     'datasize': 4
 },{
     'type': 'pool',
     'filter': [2, 2],
-    'stride': [2, 2],
+    'strides': [2, 2],
     'padding': 'SAME',
     'datasize': 4
 },{
     'type': 'conv',
     'filter': [5, 5, 64],
-    'stride': [2, 2],
+    'strides': [2, 2],
     'padding': 'SAME',
     'datasize': 4
 },{
     'type': 'pool',
     'filter': [2, 2],
-    'stride': [2, 2],
+    'strides': [2, 2],
     'padding': 'SAME',
     'datasize': 4
 },{
@@ -102,14 +102,14 @@ utils.report(stats);</code></pre><h3>Model layout</h3><p>Currently, here are 3 s
 <p>Fields in <code>conv</code> layer:</p>
 <ol>
 <li><code>filter</code>: 3D array kernal size (height, width, outChannel).</li>
-<li><code>stride</code>: 2D array stride size (height, width).</li>
+<li><code>strides</code>: 2D array strides size (height, width).</li>
 <li><code>padding</code>: 2D array padding size (height, width).</li>
 <li><code>datasize</code> (optional): number of byte of one value (for <code>float32</code>, this should be <code>4</code> because <code>32 / 8 = 4</code>). This value is used to calculate how much memory needed for the network.</li>
 </ol>
 <p>Fields in <code>pool</code> layer:</p>
 <ol>
 <li><code>filter</code>: 2D array kernal size (height, width).</li>
-<li><code>stride</code>: 2D array stride size (height, width).</li>
+<li><code>strides</code>: 2D array strides size (height, width).</li>
 <li><code>padding</code>: 2D array padding size (height, width).</li>
 <li><code>datasize</code> (optional): number of byte of one value (for <code>float32</code>, this should be <code>4</code> because <code>32 / 8 = 4</code>). This value is used to calculate how much memory needed for the network.</li>
 </ol>

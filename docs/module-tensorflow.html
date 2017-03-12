@@ -22,7 +22,7 @@
 <label for="nav-trigger" class="overlay"></label>
 
 <nav>
-    <h2><a href="index.html">Home</a></h2><h3>Modules</h3><ul><li><a href="module-tensorflow.html">tensorflow</a><ul class='methods'><li data-type='method'><a href="module-tensorflow.html#~analyzeConvTF">analyzeConvTF</a></li><li data-type='method'><a href="module-tensorflow.html#~analyzePoolTF">analyzePoolTF</a></li><li data-type='method'><a href="module-tensorflow.html#~getPaddings">getPaddings</a></li></ul></li></ul><h3>Global</h3><ul><li><a href="global.html#analyzeConv">analyzeConv</a></li><li><a href="global.html#analyzeFC">analyzeFC</a></li><li><a href="global.html#analyzeFlatten">analyzeFlatten</a></li><li><a href="global.html#analyzeNetwork">analyzeNetwork</a></li><li><a href="global.html#analyzePool">analyzePool</a></li><li><a href="global.html#check2DFilter">check2DFilter</a></li><li><a href="global.html#check2DPadding">check2DPadding</a></li><li><a href="global.html#check2DStride">check2DStride</a></li><li><a href="global.html#check2Or3DInput">check2Or3DInput</a></li><li><a href="global.html#check3DFilter">check3DFilter</a></li><li><a href="global.html#checkTFPadding">checkTFPadding</a></li><li><a href="global.html#convertData">convertData</a></li><li><a href="global.html#convertNumber">convertNumber</a></li><li><a href="global.html#report">report</a></li></ul>
+    <h2><a href="index.html">Home</a></h2><h3>Modules</h3><ul><li><a href="module-tensorflow.html">tensorflow</a><ul class='methods'><li data-type='method'><a href="module-tensorflow.html#~analyzeConvTF">analyzeConvTF</a></li><li data-type='method'><a href="module-tensorflow.html#~analyzePoolTF">analyzePoolTF</a></li><li data-type='method'><a href="module-tensorflow.html#~getPaddings">getPaddings</a></li></ul></li></ul><h3>Global</h3><ul><li><a href="global.html#analyzeConv">analyzeConv</a></li><li><a href="global.html#analyzeFC">analyzeFC</a></li><li><a href="global.html#analyzeFlatten">analyzeFlatten</a></li><li><a href="global.html#analyzeNetwork">analyzeNetwork</a></li><li><a href="global.html#analyzePool">analyzePool</a></li><li><a href="global.html#check2DFilter">check2DFilter</a></li><li><a href="global.html#check2DPadding">check2DPadding</a></li><li><a href="global.html#check2Dstrides">check2Dstrides</a></li><li><a href="global.html#check2Or3DInput">check2Or3DInput</a></li><li><a href="global.html#check3DFilter">check3DFilter</a></li><li><a href="global.html#checkTFPadding">checkTFPadding</a></li><li><a href="global.html#convertData">convertData</a></li><li><a href="global.html#convertNumber">convertNumber</a></li><li><a href="global.html#report">report</a></li></ul>
 </nav>
 
 <div id="main">
@@ -150,7 +150,7 @@
 
     
 
-    <h4 class="name" id="~analyzeConvTF"><span class="type-signature">(inner) </span>analyzeConvTF<span class="signature">(input, filter, stride, padding, options)</span><span class="type-signature"> &rarr; {Object}</span></h4>
+    <h4 class="name" id="~analyzeConvTF"><span class="type-signature">(inner) </span>analyzeConvTF<span class="signature">(input, filter, strides, padding, options)</span><span class="type-signature"> &rarr; {Object}</span></h4>
 
     
 
@@ -286,7 +286,7 @@
 
         <tr>
             
-                <td class="name"><code>stride</code></td>
+                <td class="name"><code>strides</code></td>
             
 
             <td class="type">
@@ -397,7 +397,7 @@
 
     
 
-    <h4 class="name" id="~analyzePoolTF"><span class="type-signature">(inner) </span>analyzePoolTF<span class="signature">(input, filter, stride, padding, options)</span><span class="type-signature"> &rarr; {Object}</span></h4>
+    <h4 class="name" id="~analyzePoolTF"><span class="type-signature">(inner) </span>analyzePoolTF<span class="signature">(input, filter, strides, padding, options)</span><span class="type-signature"> &rarr; {Object}</span></h4>
 
     
 
@@ -533,7 +533,7 @@
 
         <tr>
             
-                <td class="name"><code>stride</code></td>
+                <td class="name"><code>strides</code></td>
             
 
             <td class="type">
@@ -644,7 +644,7 @@
 
     
 
-    <h4 class="name" id="~getPaddings"><span class="type-signature">(inner) </span>getPaddings<span class="signature">(input, filter, stride, options)</span><span class="type-signature"> &rarr; {Object}</span></h4>
+    <h4 class="name" id="~getPaddings"><span class="type-signature">(inner) </span>getPaddings<span class="signature">(input, filter, strides, options)</span><span class="type-signature"> &rarr; {Object}</span></h4>
 
     
 
@@ -780,7 +780,7 @@
 
         <tr>
             
-                <td class="name"><code>stride</code></td>
+                <td class="name"><code>strides</code></td>
             
 
             <td class="type">

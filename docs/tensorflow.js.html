@@ -22,7 +22,7 @@
 <label for="nav-trigger" class="overlay"></label>
 
 <nav>
-    <h2><a href="index.html">Home</a></h2><h3>Modules</h3><ul><li><a href="module-analyzer.html">analyzer</a><ul class='methods'><li data-type='method'><a href="module-analyzer.html#~analyzeConv">analyzeConv</a></li><li data-type='method'><a href="module-analyzer.html#~analyzeFC">analyzeFC</a></li><li data-type='method'><a href="module-analyzer.html#~analyzeFlatten">analyzeFlatten</a></li><li data-type='method'><a href="module-analyzer.html#~analyzeNetwork">analyzeNetwork</a></li><li data-type='method'><a href="module-analyzer.html#~analyzePool">analyzePool</a></li></ul></li><li><a href="module-errorCheck.html">errorCheck</a><ul class='methods'><li data-type='method'><a href="module-errorCheck.html#~check2DFilter">check2DFilter</a></li><li data-type='method'><a href="module-errorCheck.html#~check2DPadding">check2DPadding</a></li><li data-type='method'><a href="module-errorCheck.html#~check2DStride">check2DStride</a></li><li data-type='method'><a href="module-errorCheck.html#~check3DFilter">check3DFilter</a></li><li data-type='method'><a href="module-errorCheck.html#~checkTFPadding">checkTFPadding</a></li></ul></li><li><a href="module-tfAnalyzer.html">tfAnalyzer</a><ul class='methods'><li data-type='method'><a href="module-tfAnalyzer.html#~analyzeConvTF">analyzeConvTF</a></li><li data-type='method'><a href="module-tfAnalyzer.html#~analyzePoolTF">analyzePoolTF</a></li><li data-type='method'><a href="module-tfAnalyzer.html#~getPaddings">getPaddings</a></li></ul></li><li><a href="module-utils.html">utils</a><ul class='methods'><li data-type='method'><a href="module-utils.html#~convertNumber">convertNumber</a></li><li data-type='method'><a href="module-utils.html#~report">report</a></li></ul></li></ul>
+    <h2><a href="index.html">Home</a></h2><h3>Modules</h3><ul><li><a href="module-analyzer.html">analyzer</a><ul class='methods'><li data-type='method'><a href="module-analyzer.html#~analyzeConv">analyzeConv</a></li><li data-type='method'><a href="module-analyzer.html#~analyzeFC">analyzeFC</a></li><li data-type='method'><a href="module-analyzer.html#~analyzeFlatten">analyzeFlatten</a></li><li data-type='method'><a href="module-analyzer.html#~analyzeNetwork">analyzeNetwork</a></li><li data-type='method'><a href="module-analyzer.html#~analyzePool">analyzePool</a></li></ul></li><li><a href="module-errorCheck.html">errorCheck</a><ul class='methods'><li data-type='method'><a href="module-errorCheck.html#~check2DFilter">check2DFilter</a></li><li data-type='method'><a href="module-errorCheck.html#~check2DPadding">check2DPadding</a></li><li data-type='method'><a href="module-errorCheck.html#~check2Dstrides">check2Dstrides</a></li><li data-type='method'><a href="module-errorCheck.html#~check3DFilter">check3DFilter</a></li><li data-type='method'><a href="module-errorCheck.html#~checkTFPadding">checkTFPadding</a></li></ul></li><li><a href="module-tfAnalyzer.html">tfAnalyzer</a><ul class='methods'><li data-type='method'><a href="module-tfAnalyzer.html#~analyzeConvTF">analyzeConvTF</a></li><li data-type='method'><a href="module-tfAnalyzer.html#~analyzePoolTF">analyzePoolTF</a></li><li data-type='method'><a href="module-tfAnalyzer.html#~getPaddings">getPaddings</a></li></ul></li><li><a href="module-utils.html">utils</a><ul class='methods'><li data-type='method'><a href="module-utils.html#~convertNumber">convertNumber</a></li><li data-type='method'><a href="module-utils.html#~report">report</a></li></ul></li></ul>
 </nav>
 
 <div id="main">
@@ -51,17 +51,17 @@ let errorCheck = require('./errorCheck');
  * 
  * @param  {Array}	input - 2 or 3 dimension array ([height, width] or [height, width, channel])
  * @param  {Array}	filter - 3 dimension array ([height, width, out-channel])
- * @param  {Array}	stride - 2 dimension array ([height, width])
+ * @param  {Array}	strides - 2 dimension array ([height, width])
  * @param  {String}	padding - The padding algorithm. Either "VALID" or "SAME".
  * @param  {Object} options
  * @return {Object}	statistics of the convolution layer
  */
-function analyzeConvTF(input, filter, stride, padding, options) {
+function analyzeConvTF(input, filter, strides, padding, options) {
 	options = options || {};
 
 	input = errorCheck.check2Or3DInput(input);
 	filter = errorCheck.check3DFilter(filter);
-	stride = errorCheck.check2DStride(stride);
+	strides = errorCheck.check2Dstrides(strides);
 	padding = errorCheck.checkTFPadding(padding);
 
 	let width = 0
@@ -69,11 +69,11 @@ function analyzeConvTF(input, filter, stride, padding, options) {
 	let channel = filter[2];
 
 	if (padding === 'VALID') {
-		width = Math.ceil((input[0] - filter[0] + 1) / stride[0]);
-		height = Math.ceil((input[1] - filter[1] + 1) / stride[1]);
+		width = Math.ceil((input[0] - filter[0] + 1) / strides[0]);
+		height = Math.ceil((input[1] - filter[1] + 1) / strides[1]);
 	} else {
-		width = Math.ceil(input[0] / stride[0]);
-		height = Math.ceil(input[1] / stride[1]);
+		width = Math.ceil(input[0] / strides[0]);
+		height = Math.ceil(input[1] / strides[1]);
 	}
 
 	let output = [
@@ -103,18 +103,18 @@ function analyzeConvTF(input, filter, stride, padding, options) {
  * 
  * @param  {Array}	input - 2 or 3 dimension array ([height, width] or [height, width, channel])
  * @param  {Array}	filter - 2 dimension array ([height, width])
- * @param  {Array}	stride - 2 dimension array ([height, width])
+ * @param  {Array}	strides - 2 dimension array ([height, width])
  * @param  {String}	padding - The padding algorithm. Either "VALID" or "SAME".
  * @param  {Object} options
  * @return {Object}	statistics of the pooling layer
  */
-function analyzePoolTF(input, filter, stride, padding, options) {
+function analyzePoolTF(input, filter, strides, padding, options) {
 	options = options || {};
 	padding = padding || [0, 0, 0, 0];
 
 	input = errorCheck.check2Or3DInput(input);
 	filter = errorCheck.check2DFilter(filter);
-	stride = errorCheck.check2DStride(stride);
+	strides = errorCheck.check2Dstrides(strides);
 	padding = errorCheck.checkTFPadding(padding);
 
 	let width = 0
@@ -128,16 +128,16 @@ function analyzePoolTF(input, filter, stride, padding, options) {
 	};
 
 	if (padding === 'VALID') {
-		width = Math.ceil((input[0] - filter[0] + 1) / stride[0]);
-		height = Math.ceil((input[1] - filter[1] + 1) / stride[1]);
+		width = Math.ceil((input[0] - filter[0] + 1) / strides[0]);
+		height = Math.ceil((input[1] - filter[1] + 1) / strides[1]);
 	} else {
-		width = Math.ceil(input[0] / stride[0]);
-		height = Math.ceil(input[1] / stride[1]);
+		width = Math.ceil(input[0] / strides[0]);
+		height = Math.ceil(input[1] / strides[1]);
 
-		let padAlongHeight = Math.max((height - 1) * stride[0] + filter[0] - input[0], 0);
-		let padAlongWidth = Math.max((width - 1) * stride[1] + filter[1] - input[1], 0);
+		let padAlongHeight = Math.max((height - 1) * strides[0] + filter[0] - input[0], 0);
+		let padAlongWidth = Math.max((width - 1) * strides[1] + filter[1] - input[1], 0);
 
-		pad = getPaddings(input, filter, stride);
+		pad = getPaddings(input, filter, strides);
 	}
 
 	let output = [
@@ -162,20 +162,20 @@ function analyzePoolTF(input, filter, stride, padding, options) {
  * 
  * @param  {Array}	input - 2 or 3 dimension array ([height, width] or [height, width, channel])
  * @param  {Array}	filter - 2 dimension array ([height, width])
- * @param  {Array}	stride - 2 dimension array ([height, width])
+ * @param  {Array}	strides - 2 dimension array ([height, width])
  * @param  {Object} options
  * @return {Object}	statistics of the convolution layer
  */
-function getPaddings(input, filter, stride, dilationRate=0) {
+function getPaddings(input, filter, strides, dilationRate=0) {
 	input = errorCheck.check2Or3DInput(input);
 	filter = errorCheck.check2DFilter(filter);
-	stride = errorCheck.check2DStride(stride);
+	strides = errorCheck.check2Dstrides(strides);
 
-	let outWidth = Math.ceil(input[0] / stride[0]);
-	let outHeight = Math.ceil(input[1] / stride[1]);
+	let outWidth = Math.ceil(input[0] / strides[0]);
+	let outHeight = Math.ceil(input[1] / strides[1]);
 
-	let padAlongHeight = Math.max((outHeight - 1) * stride[0] + filter[0] - input[0], 0);
-	let padAlongWidth = Math.max((outWidth - 1) * stride[1] + filter[1] - input[1], 0);
+	let padAlongHeight = Math.max((outHeight - 1) * strides[0] + filter[0] - input[0], 0);
+	let padAlongWidth = Math.max((outWidth - 1) * strides[1] + filter[1] - input[1], 0);
 
 	let pad = {};
 	pad.top = Math.floor(padAlongHeight / 2);
