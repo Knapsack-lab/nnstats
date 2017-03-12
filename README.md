@@ -100,9 +100,9 @@ MIT © [nghiattran](profile.nghiattran.com)
 
 [npm-image]: https://badge.fury.io/js/nnstats.svg
 [npm-url]: https://npmjs.org/package/nnstats
-[travis-image]: https://travis-ci.org/nghiattran/nnstats.svg?branch=master
-[travis-url]: https://travis-ci.org/nghiattran/nnstats
-[daviddm-image]: https://david-dm.org/nghiattran/nnstats.svg?theme=shields.io
-[daviddm-url]: https://david-dm.org/nghiattran/nnstats
-[coveralls-image]: https://coveralls.io/repos/nghiattran/nnstats/badge.svg
-[coveralls-url]: https://coveralls.io/github/nghiattran/nnstats
+[travis-image]: https://travis-ci.org/Knapsack-lab/nnstats.svg?branch=master
+[travis-url]: https://travis-ci.org/Knapsack-lab/nnstats
+[daviddm-image]: https://david-dm.org/Knapsack-lab/nnstats.svg?theme=shields.io
+[daviddm-url]: https://david-dm.org/Knapsack-lab/nnstats
+[coveralls-image]: https://coveralls.io/repos/Knapsack-lab/nnstats/badge.svg
+[coveralls-url]: https://coveralls.io/github/Knapsack-lab/nnstats
