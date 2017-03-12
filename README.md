@@ -88,6 +88,10 @@ Fields in `pool` layer:
 Fields in `fc` layer:
 1. `hidden`: number of neurons in hiddent layers.
 
+## Documentation
+
+https://knapsack-lab.github.io/nnstats/
+
 ## Created with
 [Yeoman](https://npmjs.org/package/yo) and [Generator-simple-package](https://npmjs.org/package/generator-simple-package)
 

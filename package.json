@@ -1,6 +1,6 @@
 {
   "name": "nnstats",
-  "version": "0.0.2",
+  "version": "0.0.4",
   "description": "Javascript package for analyzing Neural Networks.",
   "main": "index.js",
   "scripts": {
@@ -13,9 +13,10 @@
     "node": ">=0.10.0"
   },
   "files": [
-    "index.js"
+    "index.js",
+    "lib"
   ],
-  "repository": "nghiattran/nnstats",
+  "repository": "Knapsack-lab/nnstats",
   "author": {
     "name": "nghiattran",
     "email": "nghiattran3@gmail.com",
