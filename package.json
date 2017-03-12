@@ -1,6 +1,6 @@
 {
   "name": "nnstats",
-  "version": "0.0.5",
+  "version": "0.0.6",
   "description": "Javascript package for analyzing Neural Networks.",
   "main": "index.js",
   "scripts": {
