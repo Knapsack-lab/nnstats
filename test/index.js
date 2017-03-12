@@ -241,7 +241,7 @@ describe('Test normal', function () {
 			it('Check output size 1', function() {
 				let input = [28, 28, 1];
 				let filter = [5, 5, 32];
-				let stride = [1, 1];
+				let stride = [1, 1, 1, 1];
 				let padding = 'SAME';
 				let expected = [28, 28, 32];
 
@@ -256,7 +256,7 @@ describe('Test normal', function () {
 			it('Check output size 2', function() {
 				let input = [14, 14, 32];
 				let filter = [5, 5, 64];
-				let stride = [1, 1];
+				let stride = [1, 1, 1, 1];
 				let padding = 'SAME';
 				let expected = [14, 14, 64];
 
@@ -274,7 +274,7 @@ describe('Test normal', function () {
 			it('Check output size 1: SAME padding', function() {
 				let input = [28, 28, 32];
 				let filter = [2, 2];
-				let stride = [2, 2];
+				let stride = [1, 2, 2, 1];
 				let padding = 'SAME';
 				let expected = [14, 14, 32];
 
@@ -290,7 +290,7 @@ describe('Test normal', function () {
 			it('Check output size 2: SAME padding', function() {
 				let input = [28, 28, 64];
 				let filter = [4, 4];
-				let stride = [4, 4];
+				let stride = [1, 4, 4, 1];
 				let padding = 'SAME';
 				let expected = [7, 7, 64];
 
@@ -305,7 +305,7 @@ describe('Test normal', function () {
 			it('Check output size 1: VALID padding', function() {
 				let input = [13, 1, 1];
 				let filter = [6, 1];
-				let stride = [5, 1];
+				let stride = [1, 5, 1, 1];
 				let padding = 'VALID';
 				let expected = [2, 1, 1];
 

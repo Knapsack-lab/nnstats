@@ -1,0 +1,120 @@
+{
+    "inputSize": [
+        66,
+        200,
+        3
+    ],
+    "batchSize": 200,
+    "inputName": "tf_input",
+    "layers": [
+        {
+            "type": "conv",
+            "filter": [
+                5,
+                5,
+                24
+            ],
+            "stride": [
+                1,
+                2,
+                2,
+                1
+            ],
+            "padding": "SAME",
+            "activation": "relu",
+            "ops": []
+        },
+        {
+            "type": "conv",
+            "filter": [
+                5,
+                5,
+                32
+            ],
+            "stride": [
+                1,
+                2,
+                2,
+                1
+            ],
+            "padding": "SAME",
+            "activation": "relu",
+            "ops": []
+        },
+        {
+            "type": "conv",
+            "filter": [
+                5,
+                5,
+                48
+            ],
+            "stride": [
+                1,
+                2,
+                2,
+                1
+            ],
+            "padding": "SAME",
+            "activation": "relu",
+            "ops": []
+        },
+        {
+            "type": "conv",
+            "filter": [
+                3,
+                3,
+                64
+            ],
+            "stride": [
+                1,
+                1,
+                1,
+                1
+            ],
+            "padding": "SAME",
+            "activation": "relu",
+            "ops": []
+        },
+        {
+            "type": "conv",
+            "filter": [
+                3,
+                3,
+                64
+            ],
+            "stride": [
+                1,
+                1,
+                1,
+                1
+            ],
+            "padding": "SAME",
+            "activation": "relu",
+            "ops": []
+        },
+        {
+            "type": "fc",
+            "hidden": 1164,
+            "activation": "relu",
+            "ops": []
+        },
+        {
+            "type": "fc",
+            "hidden": 100,
+            "activation": "relu",
+            "ops": []
+        },
+        {
+            "type": "fc",
+            "hidden": 50,
+            "activation": "relu",
+            "ops": []
+        },
+        {
+            "type": "fc",
+            "hidden": 10,
+            "activation": "relu",
+            "ops": []
+        }
+    ]
+}
