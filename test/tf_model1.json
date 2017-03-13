@@ -4,7 +4,7 @@
         200,
         3
     ],
-    "batchSize": 200,
+    "batchSize": 100,
     "inputName": "tf_input",
     "layers": [
         {
@@ -22,7 +22,7 @@
             ],
             "padding": "SAME",
             "activation": "relu",
-            "ops": []
+            "datasize": 4
         },
         {
             "type": "conv",
@@ -39,7 +39,7 @@
             ],
             "padding": "SAME",
             "activation": "relu",
-            "ops": []
+            "datasize": 4
         },
         {
             "type": "conv",
@@ -56,7 +56,7 @@
             ],
             "padding": "SAME",
             "activation": "relu",
-            "ops": []
+            "datasize": 4
         },
         {
             "type": "conv",
@@ -73,7 +73,7 @@
             ],
             "padding": "SAME",
             "activation": "relu",
-            "ops": []
+            "datasize": 4
         },
         {
             "type": "conv",
@@ -90,31 +90,31 @@
             ],
             "padding": "SAME",
             "activation": "relu",
-            "ops": []
+            "datasize": 4
         },
         {
             "type": "fc",
             "hidden": 1164,
             "activation": "relu",
-            "ops": []
+            "datasize": 4
         },
         {
             "type": "fc",
             "hidden": 100,
             "activation": "relu",
-            "ops": []
+            "datasize": 4
         },
         {
             "type": "fc",
             "hidden": 50,
             "activation": "relu",
-            "ops": []
+            "datasize": 4
         },
         {
             "type": "fc",
             "hidden": 10,
             "activation": "relu",
-            "ops": []
+            "datasize": 4
         }
     ]
 }
